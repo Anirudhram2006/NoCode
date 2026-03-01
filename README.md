@@ -35,6 +35,8 @@ This prototype targets **supply chain and operations resilience**, with units:
 
 ### 1) Run backend
 
+You can start the API either from the `backend/` folder or from repo root.
+
 #### macOS / Linux
 
 ```bash
@@ -69,6 +71,22 @@ uvicorn main:app --host 0.0.0.0 --port 8000 --reload
 
 > `source` works only on Unix-like shells (bash/zsh). On Windows, use `Activate.ps1` (PowerShell) or `activate.bat` (CMD).
 
+
+#### Alternative: run from repository root
+
+```bash
+cd /path/to/NoCode
+python -m uvicorn backend.main:app --host 0.0.0.0 --port 8000 --reload
+```
+
+#### Alternative: helper script
+
+```bash
+cd backend
+python run_server.py
+```
+
+
 #### Fix for `Permission denied ... .venv\Scripts\python.exe`
 
 If you see:
@@ -99,6 +117,25 @@ Use this sequence:
    py -3 -m pip install --user -r requirements.txt
    py -3 -m uvicorn main:app --host 0.0.0.0 --port 8000 --reload
    ```
+
+
+#### Backend not reachable checklist
+
+If the backend site cannot be reached, verify in order:
+
+1. Server started without errors in terminal (look for `Uvicorn running on http://0.0.0.0:8000`).
+2. Open `http://127.0.0.1:8000/health` and confirm it returns `{"status":"ok"}`.
+3. Open `http://127.0.0.1:8000/` and confirm it returns API info JSON.
+4. Make sure you are using **http** (not https).
+5. If running from repo root, use module path `backend.main:app` (not `main:app`).
+6. On Windows, allow Python through firewall on Private networks when prompted.
+
+Quick terminal checks:
+
+```bash
+curl http://127.0.0.1:8000/health
+curl http://127.0.0.1:8000/
+```
 
 ### 2) Run frontend
 
