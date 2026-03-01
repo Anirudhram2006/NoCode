@@ -112,9 +112,12 @@ Open: `http://127.0.0.1:5173`
 
 ## API endpoints
 
+- `GET /` – API status + available endpoints (helpful to verify the service is running)
 - `GET /health` – service health check
 - `GET /templates` – crisis events, mitigations, units
 - `POST /simulate` – run simulation and mitigation comparison
+
+If you open `http://127.0.0.1:8000/` in a browser, you should now get a JSON status response (instead of `{"detail":"Not Found"}`).
 
 ### Example simulation payload
 

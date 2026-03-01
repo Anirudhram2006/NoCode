@@ -4,9 +4,23 @@ from dataclasses import dataclass
 from typing import Dict, List
 
 from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel, Field
 
 app = FastAPI(title="No-Code AI Crisis Simulation API", version="0.1.0")
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=[
+        "http://127.0.0.1:5173",
+        "http://localhost:5173",
+        "http://127.0.0.1:3000",
+        "http://localhost:3000",
+    ],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 
 UNIT_ORDER = ["logistics", "production", "inventory", "finance", "customer_service"]
@@ -215,6 +229,15 @@ def run_simulation(scenario: ScenarioRequest) -> SimulationResult:
         total_delay_hours=round(delay_hours, 2),
         recommendations=_recommendations(final_impacts),
     )
+
+
+@app.get("/")
+def root() -> dict:
+    return {
+        "name": "No-Code AI Crisis Simulation API",
+        "status": "ok",
+        "endpoints": ["/health", "/templates", "/simulate", "/docs"],
+    }
 
 
 @app.get("/health")
