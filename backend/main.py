@@ -22,15 +22,7 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-from fastapi.middleware.cors import CORSMiddleware
 
-app.add_middleware(
-    CORSMiddleware,
-    allow_origins=["*"],  # For development
-    allow_credentials=True,
-    allow_methods=["*"],
-    allow_headers=["*"],
-)
 UNIT_ORDER = ["logistics", "production", "inventory", "finance", "customer_service"]
 DEFAULT_DEPENDENCIES = {
     "logistics": ["inventory", "production"],
