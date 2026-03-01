@@ -35,6 +35,8 @@ This prototype targets **supply chain and operations resilience**, with units:
 
 ### 1) Run backend
 
+#### macOS / Linux
+
 ```bash
 cd backend
 python -m venv .venv
@@ -43,16 +45,29 @@ pip install -r requirements.txt
 uvicorn main:app --host 0.0.0.0 --port 8000 --reload
 ```
 
-### Windows backend setup (PowerShell / CMD)
+#### Windows (PowerShell)
 
 ```powershell
 cd backend
 py -3 -m venv .venv
-.\.venv\Scripts\activate
+.\.venv\Scripts\Activate.ps1
 python -m pip install --upgrade pip
 pip install -r requirements.txt
 uvicorn main:app --host 0.0.0.0 --port 8000 --reload
 ```
+
+#### Windows (Command Prompt / CMD)
+
+```bat
+cd backend
+py -3 -m venv .venv
+.venv\Scripts\activate.bat
+python -m pip install --upgrade pip
+pip install -r requirements.txt
+uvicorn main:app --host 0.0.0.0 --port 8000 --reload
+```
+
+> `source` works only on Unix-like shells (bash/zsh). On Windows, use `Activate.ps1` (PowerShell) or `activate.bat` (CMD).
 
 #### Fix for `Permission denied ... .venv\Scripts\python.exe`
 
