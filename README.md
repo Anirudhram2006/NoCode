@@ -43,6 +43,48 @@ pip install -r requirements.txt
 uvicorn main:app --host 0.0.0.0 --port 8000 --reload
 ```
 
+### Windows backend setup (PowerShell / CMD)
+
+```powershell
+cd backend
+py -3 -m venv .venv
+.\.venv\Scripts\activate
+python -m pip install --upgrade pip
+pip install -r requirements.txt
+uvicorn main:app --host 0.0.0.0 --port 8000 --reload
+```
+
+#### Fix for `Permission denied ... .venv\Scripts\python.exe`
+
+If you see:
+
+```text
+Error: [Errno 13] Permission denied: '...\\backend\\.venv\\Scripts\\python.exe'
+```
+
+Use this sequence:
+
+1. Delete any partially-created virtual env:
+
+   ```powershell
+   rmdir /s /q .venv
+   ```
+
+2. Ensure no process is locking `python.exe` (close terminals/IDEs in that folder).
+3. Recreate with launcher explicitly:
+
+   ```powershell
+   py -3 -m venv .venv
+   ```
+
+4. If still blocked, move the repo to a writable folder outside protected sync/security paths (for example from Desktop/OneDrive to `C:\dev\NoCode`) and rerun setup.
+5. As a fallback without venv, install user-local packages:
+
+   ```powershell
+   py -3 -m pip install --user -r requirements.txt
+   py -3 -m uvicorn main:app --host 0.0.0.0 --port 8000 --reload
+   ```
+
 ### 2) Run frontend
 
 ```bash
